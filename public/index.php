@@ -2,11 +2,13 @@
 require(__DIR__ . '/../library/controller.php');
 require('../library/smarty/Smarty.class.php');
 
-function __autoload($class_name)
+function autoload($class_name)
 {
 	$path = __DIR__ . '/../' . str_replace('_', '/', $class_name) . '.php';
 	require_once($path);
 }
+
+spl_autoload_register('autoload');
 
 class URL
 {
@@ -49,13 +51,12 @@ class Render
 
 
 		//$smarty->force_compile = true;
-		$smarty->debugging = true;
-		$smarty->caching = true;
+		$smarty->debugging = false;
+		$smarty->caching = false;
 		$smarty->cache_lifetime = 120;
-		$smarty->setTemplateDir(__DIR__ . '../templates/views/');
-		$smarty->addTemplateDir(__DIR__ . '../templates/layout/');
+		$smarty->setTemplateDir(__DIR__ . '/../templates/views/');
+		$smarty->addTemplateDir(__DIR__ . '/../templates/layout/');
 
-		$smarty->display('index.tpl');
 		$this->smarty = $smarty;
 	}
 
@@ -85,7 +86,7 @@ class Render
 		}
 		if (file_exists(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.tpl'))
 		{
-			$this->smarty->display('/' . $folder . '/' . $action . '.tpl');
+			$this->smarty->display($folder . '/' . $action . '.tpl');
 		}
 		elseif (file_exists(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.phtml'))
 		{
