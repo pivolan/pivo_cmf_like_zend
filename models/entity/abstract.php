@@ -6,7 +6,16 @@
  * Time: 21:13
  * To change this template use File | Settings | File Templates.
  */
- 
-class models_entity_abstract {
 
+class models_entity_abstract
+{
+	protected $data, $id;
+
+	abstract function get();
+
+	function __construct($id, $data)
+	{
+		$this->id = $id;
+		$this->data = $data;
+	}
 }

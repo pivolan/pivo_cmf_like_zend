@@ -11,8 +11,12 @@ class models_db_user extends models_db_abstract
 {
 	protected $_fields = array(
 		self::KN_ID => '',
-		self::KN_MESSAGE => '',
-		self::KN_OWNER_ID => '',
-		self::KN_DATE_CREATE => '',
+		self::KN_FIO => '',
+		self::KN_DATE_REG => '',
+		self::KN_LOGIN => '',
+		self::KN_PASSWORD => '',
+		self::KN_URL => '',
 	);
+	static protected $_table = self::TN_USER;
+
 }

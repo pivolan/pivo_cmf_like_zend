@@ -20,6 +20,7 @@ abstract class controller
 	function preDispatch()
 	{
 		session_start();
+		models_bu
 	}
 
 	function postDispatch()

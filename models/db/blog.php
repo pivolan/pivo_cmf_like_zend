@@ -9,10 +9,12 @@
 
 class models_db_blog extends models_db_abstract
 {
-	protected $_fields = array(
+	static protected $_fields = array(
 		self::KN_ID => '',
 		self::KN_MESSAGE => '',
 		self::KN_OWNER_ID => '',
 		self::KN_DATE_CREATE => '',
 	);
+
+	static protected $_table = self::TN_BLOG;
 }

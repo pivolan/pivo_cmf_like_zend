@@ -2,12 +2,12 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: PiVo
- * Date: 12.02.12
- * Time: 21:11
+ * Date: 14.02.12
+ * Time: 0:43
  * To change this template use File | Settings | File Templates.
  */
 
-class models_db_exception extends Exception
+class models_busines_event_abstract
 {
-
+	abstract static public function run();
 }

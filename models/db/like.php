@@ -15,4 +15,6 @@ class models_db_like extends models_db_abstract
 		self::KN_BLOG_ID => '',
 		self::KN_DATE => '',
 	);
+	static protected $_table = self::TN_LIKE;
+
 }
