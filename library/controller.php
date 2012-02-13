@@ -19,7 +19,7 @@ abstract class controller
 
 	function preDispatch()
 	{
-
+		session_start();
 	}
 
 	function postDispatch()

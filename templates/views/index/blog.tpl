@@ -1,0 +1,3 @@
+<div>
+	{$blog.text}
+</div>

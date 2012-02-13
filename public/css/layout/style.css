@@ -1,0 +1,165 @@
+body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #ceeaff;
+	font-family: "Arial";
+	font-size: 14px;
+}
+
+.head {
+	margin: 0 0 0 0;
+    background: #a4b3bf;
+    height: 28px;
+	text-align: left;
+	min-width: 1050px;
+}
+
+	.head > span{
+		float:left;
+		margin-right: 30px;
+		padding-top: 5px;
+	}
+	.head .profile{
+		float: right;
+		margin: 0;
+		padding: 0;
+	}
+		.head .profile span.name{
+			float: right;
+			padding: 5px;
+		}
+	.head #gbi5 {
+		background: url("//ssl.gstatic.com/gb/images/h_bedf916a.png") repeat scroll 0 0 transparent;
+		display: block;
+		font-size: 0;
+		height: 17px;
+		width: 16px;
+		margin: 5px;
+		float: right;
+	}
+	.head #gbi5:hover {
+		background-position: -6px -22px;
+	}
+
+	.head .ava{
+		width: 28px;
+		overflow: hidden;
+		float:left;
+	}
+	.head .ava img{
+		height: 26px;
+		width: 26px;
+	}
+
+.main {
+	width: 1050px;
+	margin: 0 auto;
+}
+
+span.red {
+	color: #c70b18;
+}
+
+.clear {
+	clear: both;
+}
+
+.left {
+	float: left;
+	width: 220px;
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+
+.menu_title {
+	height: 21px;
+	color: #c70b18;
+	text-align: center;
+	font-size: 15px;
+}
+
+	.left #user-find-input, .right #blog-find-input{
+		width: 220px;
+	}
+
+	.left .user-item, .right .blog-item{
+		margin: 5px 0 5px 0;
+	}
+		.left .user-item a, .right .blog-item a{
+			float:left;
+		}
+		.left .user-item a.name, .right .blog-item a.name{
+			margin: 4px 0 0 10px;
+		}
+
+.common {
+	text-align: left;
+}
+
+.content {
+	margin-left: 235px;
+	margin-right: 235px;
+	min-height: 400px;
+}
+
+	.content #chat-textarea{
+		widows: 80%;
+	}
+
+	.content .help{
+		text-align: center;
+		float: right;
+		margin: 0 3px 3px 3px;
+		padding-top: 11px;
+		width: 141px;
+		height: 83px;
+		background: #cbffcb;
+		border: #ffcbcb solid 3px;
+	}
+	.content .help.over,.content .help:hover{
+		border: dotted;
+	}
+
+	ol.filelist {
+		width: 387px;
+	}
+		ol.filelist a.delete{
+			float: right;
+		}
+
+.right {
+	float: right;
+	width: 235px;
+	margin: 0;
+	padding: 0;
+}
+
+ul.menu_list {
+	padding: 0 0 12px 29px;
+	margin: 0;
+}
+
+ul.menu_list li.menu_list_item {
+	list-style-image: url("/img/layout/171/list_item.png");
+	margin-top: 6px;
+	height: 20px;
+}
+
+.menu_list li.menu_list_item a {
+	color: #330000;
+}
+
+.menu_list li.menu_list_item:first-letter {
+	color: #c70b18;
+}
+
+.left_bg {
+	height: 300px;
+	background: url("/img/layout/171/bg_left.png") 36px 40px no-repeat;
+}
+
+.foot {
+	float:left;
+}

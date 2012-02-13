@@ -6,22 +6,35 @@
  * Time: 3:22:50
  * To change this template use File | Settings | File Templates.
  */
- 
-class controllers_index extends controller{
+
+class controllers_blog extends controller
+{
 	public $page;
 
 	function preDispatch()
 	{
 		parent::preDispatch();
 	}
+
 	function postDispatch()
 	{
 	}
+
 	function index()
 	{
 	}
-	function blog()
+
+	function create()
 	{
-		$this->view->blog = array('text'=>'ghjdthrf');
+		
+	}
+
+	function delete()
+	{
+
+	}
+	function edit()
+	{
+
 	}
 }
