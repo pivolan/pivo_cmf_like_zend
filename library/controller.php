@@ -12,6 +12,8 @@ abstract class controller
 	public $action;
 	public $view;
 
+	protected $current_user;
+
 	function __construct()
 	{
 
@@ -20,7 +22,8 @@ abstract class controller
 	function preDispatch()
 	{
 		session_start();
-		models_bu
+		models_db_abstract::init();
+		$this->current_user = models_busines_event_authorization::run();
 	}
 
 	function postDispatch()

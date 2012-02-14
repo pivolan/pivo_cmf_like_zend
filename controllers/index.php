@@ -19,6 +19,8 @@ class controllers_index extends controller{
 	}
 	function index()
 	{
+		$this->view->user = $this->current_user->as_array();
+		$this->view->test = 'test';
 	}
 	function blog()
 	{

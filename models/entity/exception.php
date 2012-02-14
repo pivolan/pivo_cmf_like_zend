@@ -6,7 +6,8 @@
  * Time: 21:13
  * To change this template use File | Settings | File Templates.
  */
- 
-class models_entity_exception {
+
+class models_entity_exception extends Exception
+{
 
 }

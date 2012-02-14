@@ -83,9 +83,9 @@
 		<div class="clear"></div>
 	</div>
 	<div class="foot">
-
-		<a href="/login"><img src="/img/layout/171/gtk-quit.png"></a>
-
+		{block 'test'}
+		
+		{/block}
 	</div>
 </div>
 </body>

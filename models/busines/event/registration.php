@@ -13,12 +13,9 @@ class models_busines_event_registration extends models_busines_event_abstract
 
 	static public function run()
 	{
-		if(isset($_SESSION[self::SN_ID]) && is_numeric($_SESSION[self::SN_ID]))
-		{
-		}
-		else
-		{
-
-		}
+		$user = models_entity_user::create();
+		setcookie(models_busines_event_authorization::CK_ID, $user->get_cookie_id(), mktime(null, null, null, null, null, date('Y') + 1));
+		$_SESSION[self::SN_ID] = $user->get_id();
+		return $user;
 	}
 }

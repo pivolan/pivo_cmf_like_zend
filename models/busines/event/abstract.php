@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class models_busines_event_abstract
+abstract class models_busines_event_abstract
 {
 	abstract static public function run();
 }
