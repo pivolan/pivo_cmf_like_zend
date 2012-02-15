@@ -6,8 +6,9 @@
  * Time: 3:26:45
  * To change this template use File | Settings | File Templates.
  */
+namespace controllers;
 
-class controllers_error extends controller
+class error extends \library\controller
 {
 	function index()
 	{

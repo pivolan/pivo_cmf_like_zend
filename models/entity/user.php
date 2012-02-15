@@ -6,13 +6,14 @@
  * Time: 21:13
  * To change this template use File | Settings | File Templates.
  */
-
-class models_entity_user extends models_entity_abstract
+namespace models\entity;
+use models\db\Adb;
+class user extends Aentity
 {
 	protected static $entity = array();
 
-	protected $data, $id;
-	protected $chdata;
+	protected $data = array(), $id;
+	protected $chdata = array();
 
 	static public function get($id)
 	{
@@ -23,8 +24,8 @@ class models_entity_user extends models_entity_abstract
 		}
 		$result = false;
 
-		$data = models_db_user::get($id);
-		if ($data && is_array($data) && isset($data[models_db_user::KN_ID]))
+		$data = \models\db\user::get($id);
+		if ($data && is_array($data) && isset($data[\models\db\user::KN_ID]))
 		{
 			$result = new self($id, $data);
 			// singleton
@@ -37,8 +38,8 @@ class models_entity_user extends models_entity_abstract
 	{
 		$result = false;
 
-		$data = models_db_user::find_by_cookie_id($cookie_id);
-		if ($data && is_array($data) && isset($data[models_db_user::KN_ID]))
+		$data = \models\db\user::find_by_cookie_id($cookie_id);
+		if ($data && is_array($data) && isset($data[\models\db\user::KN_ID]))
 		{
 			$result = new self($cookie_id, $data);
 		}
@@ -48,38 +49,38 @@ class models_entity_user extends models_entity_abstract
 	static public function create($fio = 'Guest', $login = null, $password = null, $url = null, $date_reg = null, $cookie_id = null)
 	{
 		$data = array(
-			models_db_abstract::KN_FIO => $fio,
+			Adb::KN_FIO => $fio,
 		);
 		if (isset($login))
 		{
-			$data[models_db_abstract::KN_LOGIN] = $login;
+			$data[Adb::KN_LOGIN] = $login;
 		}
 		if (isset($password))
 		{
-			$data[models_db_abstract::KN_PASSWORD] = md5($password);
+			$data[Adb::KN_PASSWORD] = md5($password);
 		}
 		if (isset($url))
 		{
-			$data[models_db_abstract::KN_URL] = $url;
+			$data[Adb::KN_URL] = $url;
 		}
 		if (isset($date_reg) && is_numeric($date_reg))
 		{
-			$data[models_db_abstract::KN_DATE_REG] = $date_reg;
+			$data[Adb::KN_DATE_REG] = $date_reg;
 		}
 		else
 		{
-			$data[models_db_abstract::KN_DATE_REG] = time();
+			$data[Adb::KN_DATE_REG] = time();
 		}
 		if (isset($cookie_id) && is_numeric($cookie_id))
 		{
-			$data[models_db_abstract::KN_COOKIE_ID] = $cookie_id;
+			$data[Adb::KN_COOKIE_ID] = $cookie_id;
 		}
 		else
 		{
-			$data[models_db_abstract::KN_COOKIE_ID] = self::generate_cookie_id();
+			$data[Adb::KN_COOKIE_ID] = self::generate_cookie_id();
 		}
 
-		$id = models_db_user::add($data);
+		$id = \models\db\user::add($data);
 
 		$result = new self($id, $data);
 		self::$entity[$id] = $result;
@@ -105,7 +106,7 @@ class models_entity_user extends models_entity_abstract
 
 	public function save()
 	{
-		models_db_user::edit($this->get_id(), $this->chdata);
+		\models\db\user::edit($this->get_id(), $this->chdata);
 	}
 
 	/** GET start */
@@ -117,13 +118,13 @@ class models_entity_user extends models_entity_abstract
 	public function get_fio()
 	{
 		$result = null;
-		if (isset($this->chdata[models_db_abstract::KN_FIO]))
+		if (isset($this->chdata[Adb::KN_FIO]))
 		{
-			$result = $this->chdata[models_db_abstract::KN_FIO];
+			$result = $this->chdata[Adb::KN_FIO];
 		}
-		elseif (isset($this->data[models_db_abstract::KN_FIO]))
+		elseif (isset($this->data[Adb::KN_FIO]))
 		{
-			$result = $this->data[models_db_abstract::KN_FIO];
+			$result = $this->data[Adb::KN_FIO];
 		}
 		return $result;
 	}
@@ -131,13 +132,13 @@ class models_entity_user extends models_entity_abstract
 	public function get_date_reg()
 	{
 		$result = null;
-		if (isset($this->chdata[models_db_abstract::KN_DATE_REG]))
+		if (isset($this->chdata[Adb::KN_DATE_REG]))
 		{
-			$result = $this->chdata[models_db_abstract::KN_DATE_REG];
+			$result = $this->chdata[Adb::KN_DATE_REG];
 		}
-		elseif (isset($this->data[models_db_abstract::KN_DATE_REG]))
+		elseif (isset($this->data[Adb::KN_DATE_REG]))
 		{
-			$result = $this->data[models_db_abstract::KN_DATE_REG];
+			$result = $this->data[Adb::KN_DATE_REG];
 		}
 		return $result;
 	}
@@ -145,13 +146,13 @@ class models_entity_user extends models_entity_abstract
 	public function get_login()
 	{
 		$result = null;
-		if (isset($this->chdata[models_db_abstract::KN_LOGIN]))
+		if (isset($this->chdata[Adb::KN_LOGIN]))
 		{
-			$result = $this->chdata[models_db_abstract::KN_LOGIN];
+			$result = $this->chdata[Adb::KN_LOGIN];
 		}
-		elseif (isset($this->data[models_db_abstract::KN_LOGIN]))
+		elseif (isset($this->data[Adb::KN_LOGIN]))
 		{
-			$result = $this->data[models_db_abstract::KN_LOGIN];
+			$result = $this->data[Adb::KN_LOGIN];
 		}
 		return $result;
 	}
@@ -159,13 +160,13 @@ class models_entity_user extends models_entity_abstract
 	public function get_url()
 	{
 		$result = null;
-		if (isset($this->chdata[models_db_abstract::KN_URL]))
+		if (isset($this->chdata[Adb::KN_URL]))
 		{
-			$result = $this->chdata[models_db_abstract::KN_URL];
+			$result = $this->chdata[Adb::KN_URL];
 		}
-		elseif (isset($this->data[models_db_abstract::KN_URL]))
+		elseif (isset($this->data[Adb::KN_URL]))
 		{
-			$result = $this->data[models_db_abstract::KN_URL];
+			$result = $this->data[Adb::KN_URL];
 		}
 		return $result;
 	}
@@ -173,13 +174,13 @@ class models_entity_user extends models_entity_abstract
 	public function get_cookie_id()
 	{
 		$result = null;
-		if (isset($this->chdata[models_db_abstract::KN_COOKIE_ID]))
+		if (isset($this->chdata[Adb::KN_COOKIE_ID]))
 		{
-			$result = $this->chdata[models_db_abstract::KN_COOKIE_ID];
+			$result = $this->chdata[Adb::KN_COOKIE_ID];
 		}
-		elseif (isset($this->data[models_db_abstract::KN_COOKIE_ID]))
+		elseif (isset($this->data[Adb::KN_COOKIE_ID]))
 		{
-			$result = $this->data[models_db_abstract::KN_COOKIE_ID];
+			$result = $this->data[Adb::KN_COOKIE_ID];
 		}
 		return $result;
 	}
@@ -189,27 +190,27 @@ class models_entity_user extends models_entity_abstract
 	/** SET start */
 	public function set_fio($fio)
 	{
-		$this->chdata[models_db_abstract::KN_FIO] = $fio;
+		$this->chdata[Adb::KN_FIO] = $fio;
 	}
 
 	public function set_login($login)
 	{
-		$this->chdata[models_db_abstract::KN_LOGIN] = $login;
+		$this->chdata[Adb::KN_LOGIN] = $login;
 	}
 
 	public function set_password($password)
 	{
-		$this->chdata[models_db_abstract::KN_PASSWORD] = md5($password);
+		$this->chdata[Adb::KN_PASSWORD] = md5($password);
 	}
 
 	public function set_cookie_id($cookie_id)
 	{
-		$this->chdata[models_db_abstract::KN_COOKIE_ID] = $cookie_id;
+		$this->chdata[Adb::KN_COOKIE_ID] = $cookie_id;
 	}
 
 	public function set_url($url)
 	{
-		$this->chdata[models_db_abstract::KN_URL] = $url;
+		$this->chdata[Adb::KN_URL] = $url;
 	}
 	// SET end
 }

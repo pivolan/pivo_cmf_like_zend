@@ -6,7 +6,7 @@
  * Time: 4:15:07
  * To change this template use File | Settings | File Templates.
  */
-
+namespace library;
 abstract class controller
 {
 	public $action;
@@ -22,8 +22,8 @@ abstract class controller
 	function preDispatch()
 	{
 		session_start();
-		models_db_abstract::init();
-		$this->current_user = models_busines_event_authorization::run();
+		\models\db\Adb::init();
+		$this->current_user = \models\busines\event\authorization::run();
 	}
 
 	function postDispatch()

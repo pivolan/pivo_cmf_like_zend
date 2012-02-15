@@ -6,10 +6,12 @@
  * Time: 21:13
  * To change this template use File | Settings | File Templates.
  */
- 
-class models_entity_blog {
-	protected $id, $data;
-	protected $ch_data;
+namespace models\entity;
+use models\db\Adb;
+
+class blog {
+	protected $id, $data = array();
+	protected $chdata = array();
 
 	function __construct()
 	{

@@ -6,8 +6,8 @@
  * Time: 21:11
  * To change this template use File | Settings | File Templates.
  */
-
-abstract class models_db_abstract
+namespace models\db;
+abstract class Adb
 {
 	const KN_ID = 'id';
 	const KN_MESSAGE = 'message';

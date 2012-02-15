@@ -6,8 +6,8 @@
  * Time: 21:11
  * To change this template use File | Settings | File Templates.
  */
-
-class models_db_like extends models_db_abstract
+namespace models\db;
+class like extends Adb
 {
 	protected $_fields = array(
 		self::KN_ID => '',

@@ -6,8 +6,9 @@
  * Time: 21:11
  * To change this template use File | Settings | File Templates.
  */
+namespace models\db;
 
-class models_db_blog extends models_db_abstract
+class blog extends Adb
 {
 	static protected $_fields = array(
 		self::KN_ID => '',

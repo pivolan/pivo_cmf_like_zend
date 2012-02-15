@@ -2,12 +2,13 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: PiVo
- * Date: 14.02.12
- * Time: 0:43
+ * Date: 12.02.12
+ * Time: 21:11
  * To change this template use File | Settings | File Templates.
  */
+namespace models\db;
 
-abstract class models_busines_event_abstract
+class Edb extends Exception
 {
-	abstract static public function run();
+
 }

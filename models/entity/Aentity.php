@@ -6,10 +6,12 @@
  * Time: 21:13
  * To change this template use File | Settings | File Templates.
  */
+namespace models\entity;
+use models\db\Adb;
 
-abstract class models_entity_abstract
+abstract class Aentity
 {
-	protected $data, $id;
+	protected $data = array(), $id;
 	protected $chdata = array();
 
 	abstract static public function get($id);
@@ -17,8 +19,8 @@ abstract class models_entity_abstract
 	public function as_array()
 	{
 		$data = $this->data;
-		$data[models_db_abstract::KN_ID] = $this->get_id();
-		foreach($this->chdata as $key => $value)
+		$data[Adb::KN_ID] = $this->get_id();
+		foreach ($this->chdata as $key => $value)
 		{
 			$data[$key] = $value;
 		}

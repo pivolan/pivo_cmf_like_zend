@@ -4,10 +4,11 @@ require('../library/smarty/Smarty.class.php');
 
 function autoload($class_name)
 {
-	$path = __DIR__ . '/../' . str_replace('_', '/', $class_name) . '.php';
+	$path = __DIR__ . '/../' . str_replace('\\', '/', $class_name) . '.php';
 	require_once($path);
 }
 
+spl_autoload_extensions('.php');
 spl_autoload_register('autoload');
 
 class URL
@@ -25,7 +26,7 @@ class URL
 		$action = empty($map[2]) ? 'index' : $map[2];
 		if (file_exists(__DIR__ . '/../controllers/' . $controller . '.php'))
 		{
-			$controller = 'controllers_' . $controller;
+			$controller = '\\controllers\\' . $controller;
 			$cv = new $controller();
 			$cv->action = $action;
 			$cv->argvc = array_splice($map, 3);
@@ -33,8 +34,10 @@ class URL
 		}
 		else
 		{
-			$cv = new controllers_index();
-			$cv->action = $controller;
+			$cv = new controllers\index();
+			// если второго параметра нет, то считаем что первый параметр - action
+			$action = $controller;
+			$cv->action = $action;
 			$cv->argvc = array_splice($map, 2);
 			return $cv;
 		}
@@ -64,7 +67,7 @@ class Render
 	{
 		$this->smarty_init();
 		$class_name = get_class($controller);
-		$view = explode('_', $class_name);
+		$view = explode('\\', $class_name);
 		$folder = end($view);
 		/** @var $controller controller */
 		$action = $controller->action;

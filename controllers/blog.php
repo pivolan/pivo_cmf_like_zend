@@ -6,8 +6,8 @@
  * Time: 3:22:50
  * To change this template use File | Settings | File Templates.
  */
-
-class controllers_blog extends controller
+namespace controllers;
+class blog extends \library\controller
 {
 	public $page;
 

@@ -3,11 +3,12 @@
  * Created by JetBrains PhpStorm.
  * User: PiVo
  * Date: 12.02.12
- * Time: 21:15
+ * Time: 21:13
  * To change this template use File | Settings | File Templates.
  */
+namespace models\entity;
 
-class models_validator_exception extends Exception
+class Eentity extends Exception
 {
 
 }
