@@ -7,6 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace library;
+use models\db;
+use models\busines\event;
 abstract class controller
 {
 	public $action;
@@ -22,8 +24,22 @@ abstract class controller
 	function preDispatch()
 	{
 		session_start();
-		\models\db\Adb::init();
-		$this->current_user = \models\busines\event\authorization::run();
+		db\Adb::init();
+		// авторизуемся
+		$user = event\authorization::run();
+		if (!$user)
+		{
+			//если не вышло - регистрируемся
+			$user = event\registration::run();
+		}
+		if ($user)
+		{
+			$this->current_user = $user;
+		}
+		else
+		{
+			throw new Exception(' Cannot create or auth ');
+		}
 	}
 
 	function postDispatch()
@@ -35,4 +51,14 @@ abstract class controller
 	{
 		$this->render = '8';
 	}
+
+	function redirect($url = '')
+	{
+		if (empty($url))
+		{
+			$url = $_SERVER['REQUEST_URI'];
+		}
+		header("location: $url");
+	}
+
 }

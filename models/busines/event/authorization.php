@@ -30,7 +30,7 @@ class authorization extends Aevent
 			}
 			else
 			{
-				$user = registration::run();
+				return false;
 			}
 		}
 		elseif (isset($_COOKIE[self::CK_ID]) && !empty($_COOKIE[self::CK_ID]))
@@ -42,18 +42,14 @@ class authorization extends Aevent
 			}
 			else
 			{
-				$user = registration::run();
+				return false;
 			}
 		}
 		else
 		{
-			$user = registration::run();
+			return false;
 		}
 
-		if(!$user)
-		{
-			throw new Exception('cannot create user');
-		}
 		return $user;
 	}
 
