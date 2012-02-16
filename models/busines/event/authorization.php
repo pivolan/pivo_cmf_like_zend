@@ -53,7 +53,26 @@ class authorization extends Aevent
 		return $user;
 	}
 
-	static public function get_identity()
+	static public function by_url($url)
+	{
+		$user = false;
+		$user = \models\entity\user::find_by_url($url);
+		// если пользователь есть - сохраним ему cookie
+		if ($user)
+		{
+			$cookie_id = $user->update_cookie_id();
+			setcookie(self::CK_ID, $cookie_id, mktime(null, null, null, null, null, date('Y') + 1));
+			$_SESSION[self::SN_ID] = $user->get_id();
+			$user->save();
+		}
+		else
+		{
+			return false;
+		}
+		return $user;
+	}
+
+	static protected function get_identity()
 	{
 		if (isset($_SESSION[self::SN_ID]))
 		{

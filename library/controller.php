@@ -8,24 +8,26 @@
  */
 namespace library;
 use models\db;
+use models\db\Adb;
 use models\busines\event;
 abstract class controller
 {
 	public $action;
 	public $view;
+	protected $url = array();
 
 	protected $current_user;
 
 	function __construct()
 	{
-
+		session_start();
+		db\Adb::init();
 	}
 
 	function preDispatch()
 	{
-		session_start();
-		db\Adb::init();
 		// авторизуемся
+		/** @var $user \models\entity\user */
 		$user = event\authorization::run();
 		if (!$user)
 		{
@@ -35,11 +37,28 @@ abstract class controller
 		if ($user)
 		{
 			$this->current_user = $user;
+			$this->view->user = array(
+				Adb::KN_DATE_REG => $user->get_date_reg(),
+				Adb::KN_URL => $user->get_url(),
+				Adb::KN_FIO => $user->get_fio(),
+				Adb::KN_ID => $user->get_id(),
+				Adb::KN_LOGIN => $user->get_login()
+			);
 		}
 		else
 		{
 			throw new Exception(' Cannot create or auth ');
 		}
+	}
+
+	function getParam($num)
+	{
+
+	}
+
+	function setUrl($url)
+	{
+
 	}
 
 	function postDispatch()
@@ -59,6 +78,21 @@ abstract class controller
 			$url = $_SERVER['REQUEST_URI'];
 		}
 		header("location: $url");
+	}
+
+	/**
+	 * @return \models\entity\user
+	 */
+	function get_auth_user()
+	{
+		if ($this->current_user)
+		{
+			return $this->current_user;
+		}
+		else
+		{
+			throw new Exception('not auth');
+		}
 	}
 
 }

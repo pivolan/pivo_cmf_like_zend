@@ -13,6 +13,7 @@ abstract class Aentity
 {
 	protected $data = array(), $id;
 	protected $chdata = array();
+	static protected $entity = array();
 
 	abstract static public function get($id);
 

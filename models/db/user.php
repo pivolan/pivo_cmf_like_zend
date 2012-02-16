@@ -25,9 +25,28 @@ class user extends Adb
 		$result = false;
 		$cookie_id = mysql_real_escape_string($cookie_id);
 		$query_result = mysql_query("SELECT * FROM " . self::$_table . " WHERE " . self::KN_COOKIE_ID . " = '$cookie_id'");
-		while ($line = mysql_fetch_assoc($query_result))
+		if ($query_result)
 		{
-			$result = $line;
+			while ($line = mysql_fetch_assoc($query_result))
+			{
+				$result = $line;
+			}
+		}
+		return $result;
+	}
+
+	static public function find_by_url($url)
+	{
+		$result = false;
+		$url = mysql_real_escape_string($url);
+		$sql = "SELECT * FROM " . self::$_table . " WHERE " . self::KN_URL . " = '$url'";
+		$query_result = mysql_query($sql);
+		if ($query_result)
+		{
+			while ($line = mysql_fetch_assoc($query_result))
+			{
+				$result = $line;
+			}
 		}
 		return $result;
 	}

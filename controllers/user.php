@@ -22,18 +22,11 @@ class user extends \library\controller
 	{
 	}
 
-	function index()
-	{
-		$this->view->user = $this->current_user->as_array();
-		$this->view->test = 'test';
-	}
-
 	function editname()
 	{
-		/** @var $user \models\entity\user */
-		$user = $this->current_user;
+		$user = $this->get_auth_user();
 
-		if(isset($_POST['fio']))
+		if (isset($_POST['fio']))
 		{
 			$fio = $_POST['fio'];
 			$user->set_fio($fio);
@@ -48,4 +41,14 @@ class user extends \library\controller
 	{
 		$this->view->blog = array('text' => 'ghjdthrf');
 	}
+
+	function updateurl()
+	{
+		/** @var $user \models\entity\user */
+		$user = $this->get_auth_user();
+		$url = $user->update_url();
+		$user->save();
+		echo $url;
+	}
+
 }

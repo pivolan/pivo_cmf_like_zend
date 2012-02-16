@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 namespace controllers;
-
+use \models\db\Adb;
 class index extends \library\controller
 {
 	public $page;
@@ -23,12 +23,16 @@ class index extends \library\controller
 
 	function index()
 	{
-		$this->view->user = $this->current_user->as_array();
-		$this->view->test = 'test';
 	}
 
 	function blog()
 	{
 		$this->view->blog = array('text' => 'ghjdthrf');
+	}
+
+	function away($url)
+	{
+		$url = urldecode($url);
+		$this->redirect($url);
 	}
 }

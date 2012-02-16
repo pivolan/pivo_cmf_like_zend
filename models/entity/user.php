@@ -25,7 +25,7 @@ class user extends Aentity
 		$result = false;
 
 		$data = \models\db\user::get($id);
-		if ($data && is_array($data) && isset($data[\models\db\user::KN_ID]))
+		if ($data && is_array($data) && isset($data[Adb::KN_ID]))
 		{
 			$result = new self($id, $data);
 			// singleton
@@ -39,9 +39,27 @@ class user extends Aentity
 		$result = false;
 
 		$data = \models\db\user::find_by_cookie_id($cookie_id);
-		if ($data && is_array($data) && isset($data[\models\db\user::KN_ID]))
+		if ($data && is_array($data) && isset($data[Adb::KN_ID]))
 		{
-			$result = new self($cookie_id, $data);
+			$id = $data[Adb::KN_ID];
+			$result = new self($id, $data);
+			// singleton
+			self::$entity[$id] = $result;
+		}
+		return $result;
+	}
+
+	static public function find_by_url($url)
+	{
+		$result = false;
+
+		$data = \models\db\user::find_by_url($url);
+		if ($data && is_array($data) && isset($data[Adb::KN_ID]))
+		{
+			$id = $data[Adb::KN_ID];
+			$result = new self($id, $data);
+			// singleton
+			self::$entity[$id] = $result;
 		}
 		return $result;
 	}
@@ -60,6 +78,10 @@ class user extends Aentity
 			$data[Adb::KN_PASSWORD] = md5($password);
 		}
 		if (isset($url))
+		{
+			$data[Adb::KN_URL] = $url;
+		}
+		else
 		{
 			$data[Adb::KN_URL] = $url;
 		}
@@ -97,11 +119,28 @@ class user extends Aentity
 		return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 	}
 
+	static public function generate_url()
+	{
+		if (function_exists('com_create_guid') === true)
+		{
+			return trim(com_create_guid(), '{}');
+		}
+
+		return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+	}
+
 	public function update_cookie_id()
 	{
 		$cookie_id = self::generate_cookie_id();
 		$this->set_cookie_id($cookie_id);
 		return $cookie_id;
+	}
+
+	public function update_url()
+	{
+		$url = self::generate_cookie_id();
+		$this->set_url($url);
+		return $url;
 	}
 
 	public function save()

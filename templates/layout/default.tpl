@@ -13,8 +13,8 @@
 </head>
 <body>
 <div class="head">
-	<span class="date">Дата регистрации: <span id="date-register">10.10.2012</span></span>
-	<span class="quick-enter">Быстрый вход: <a href="/quick-enter" id="quick-enter">URL</a></span>
+	<span class="date">Дата регистрации: <span id="date-register">{$user.date_reg|date_format:'%d.%m.%Y'}</span></span>
+	<span class="quick-enter">Быстрый вход: <a href="/login/url/{$user.url}" id="quick-enter">URL</a></span>
 
 	<a href="/settings" id="gbi5"></a>
 	<span class="profile">
@@ -61,6 +61,7 @@
 			<div class="chat">
 				<div class="help">Чтобы прикрепить файлы, перетащите их сюда из проводника.</div>
 				<textarea name="chat" id="chat-textarea" cols="50" rows="5"></textarea>
+				<input id="submit" type="submit" value="send">
 
 				<ol class="filelist">
 					<li>
