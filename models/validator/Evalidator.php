@@ -8,7 +8,7 @@
  */
 namespace models\validator;
 
-class Evalidator extends Exception
+class Evalidator extends \Exception
 {
 
 }

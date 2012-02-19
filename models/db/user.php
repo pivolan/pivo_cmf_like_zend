@@ -50,4 +50,47 @@ class user extends Adb
 		}
 		return $result;
 	}
+
+	static public function search_by_fio($fio)
+	{
+		$result = array();
+		$fio = mysql_real_escape_string($fio);
+		$sql = "SELECT * FROM " . self::$_table . " WHERE " . self::KN_FIO . " like '%$fio%'";
+		$query_result = mysql_query($sql);
+		if ($query_result)
+		{
+			while ($line = mysql_fetch_assoc($query_result))
+			{
+				if (isset($line[Adb::KN_ID]))
+				{
+					$result[$line[Adb::KN_ID]] = $line;
+				}
+			}
+		}
+		return $result;
+	}
+
+	static public function get_multi($ids = array())
+	{
+		$result = array();
+		foreach($ids as $key => $id)
+		{
+			$ids[$key] = mysql_real_escape_string($id);
+		}
+
+		$ids_string = "(".implode(",", $ids). ")";
+		$sql = "SELECT * FROM " . self::$_table . " WHERE " . self::KN_ID . " IN $ids_string";
+		$query_result = mysql_query($sql);
+		if ($query_result)
+		{
+			while ($line = mysql_fetch_assoc($query_result))
+			{
+				if (isset($line[Adb::KN_ID]))
+				{
+					$result[$line[Adb::KN_ID]] = $line;
+				}
+			}
+		}
+		return $result;
+	}
 }

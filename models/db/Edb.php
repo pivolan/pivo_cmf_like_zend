@@ -8,7 +8,7 @@
  */
 namespace models\db;
 
-class Edb extends Exception
+class Edb extends \Exception
 {
 
 }

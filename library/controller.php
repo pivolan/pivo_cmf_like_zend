@@ -15,12 +15,14 @@ abstract class controller
 	public $action;
 	public $view;
 	protected $url = array();
+	protected $_render = true;
 
 	protected $current_user;
 
 	function __construct()
 	{
 		session_start();
+		header('Content-type: text/html; charset=utf-8');
 		db\Adb::init();
 	}
 
@@ -47,7 +49,7 @@ abstract class controller
 		}
 		else
 		{
-			throw new Exception(' Cannot create or auth ');
+			throw new \Exception(' Cannot create or auth ');
 		}
 	}
 
@@ -80,6 +82,36 @@ abstract class controller
 		header("location: $url");
 	}
 
+	function json($array)
+	{
+		$this->_set_render_off();
+		header('Content-type: application/json; charset=utf-8');
+		$json = json_encode($array);
+		echo $json;
+		return true;
+	}
+
+	function _get_render()
+	{
+		return $this->_render;
+	}
+
+	function _set_render_on()
+	{
+		$this->_render = true;
+	}
+
+	function _set_render_off()
+	{
+		$this->_render = false;
+	}
+
+	static function is_xml_http_request()
+	{
+		$isXmlHttpRequest = array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+		return $isXmlHttpRequest;
+	}
+
 	/**
 	 * @return \models\entity\user
 	 */
@@ -91,7 +123,7 @@ abstract class controller
 		}
 		else
 		{
-			throw new Exception('not auth');
+			throw new \Exception('not auth');
 		}
 	}
 

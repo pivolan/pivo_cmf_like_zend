@@ -26,6 +26,8 @@ abstract class Adb
 	const TN_USER = 'user';
 	const TN_LIKE = 'like';
 
+    const CF_PAGINATE_COUNT = 10;
+
 	static protected $_fields;
 	static protected $_table;
 
@@ -85,7 +87,7 @@ abstract class Adb
 	{
 		if (!is_numeric($id))
 		{
-			throw new models_db_exception("ID is not integer");
+			throw new Edb("ID is not integer");
 		}
 		$toDb = array();
 		$sql = '';

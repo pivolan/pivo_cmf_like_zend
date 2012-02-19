@@ -34,6 +34,39 @@ class user extends Aentity
 		return $result;
 	}
 
+	static public function get_multi($ids = array())
+	{
+		$result = false;
+
+		$data_array = \models\db\user::get_multi($ids);
+		foreach($data_array as $id=>$data)
+		{
+			$result[$id] = new self($id, $data);
+		}
+		return $result;
+	}
+
+	function delete()
+	{
+		\models\db\user::delete($this->get_id());
+	}
+
+	/**
+	 * @static
+	 * @param $fio
+	 * @return array(id=>entity\user)
+	 */
+	static public function search_by_fio($fio)
+	{
+		$result = array();
+		$data_array = \models\db\user::search_by_fio($fio);
+		foreach($data_array as $id=>$data)
+		{
+			$result[$id] = new self($id, $data);
+		}
+		return $result;
+	}
+
 	static public function find_by_cookie_id($cookie_id)
 	{
 		$result = false;

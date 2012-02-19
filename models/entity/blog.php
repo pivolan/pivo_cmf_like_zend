@@ -34,6 +34,65 @@ class blog extends Aentity
 		return $result;
 	}
 
+	static public function get_all()
+	{
+		$result = false;
+
+		$data_array = \models\db\blog::get_all();
+		foreach($data_array as $id=>$data)
+		{
+			$result[$id] = new self($id, $data);
+		}
+		return $result;
+	}
+
+	function delete()
+	{
+		\models\db\blog::delete($this->get_id());
+	}
+	/**
+	 * @static
+	 * @param $message
+	 * @return array(id=>entity\blog)
+	 */
+	static public function search_by_message($message)
+	{
+		$result = array();
+		$data_array = \models\db\blog::search_by_message($message);
+		foreach($data_array as $id=>$data)
+		{
+			$result[$id] = new self($id, $data);
+		}
+		return $result;
+	}
+
+	/**
+	 * @static
+	 * @param $owner_id
+	 * @return array(id=>entity\blog)
+	 */
+	static public function search_by_owner_id($owner_id)
+	{
+		$result = array();
+		$data_array = \models\db\blog::search_by_owner_id($owner_id);
+		foreach($data_array as $id=>$data)
+		{
+			$result[$id] = new self($id, $data);
+		}
+		return $result;
+	}
+
+	static public function search_by_owner_id_paginate($owner_id, $from, $count)
+	{
+		$result = array();
+		$data_array = \models\db\blog::search_by_owner_id_paginate($owner_id, $from, $count);
+		foreach($data_array as $id=>$data)
+		{
+			$result[$id] = new self($id, $data);
+		}
+		return $result;
+	}
+
 	static public function create($message, $owner_id, $date_create = null)
 	{
 		$data = array(

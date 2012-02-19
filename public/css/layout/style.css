@@ -66,6 +66,14 @@ span.red {
 	clear: both;
 }
 
+.clear_left {
+	clear: left;
+}
+
+.clear_right {
+	clear: right;
+}
+
 .left {
 	float: left;
 	width: 220px;
@@ -84,11 +92,18 @@ span.red {
 		width: 220px;
 	}
 
+	.left #user_loader, .content #blog_loader{
+		height: 64px;
+		background: url("/img/ico/preloader.gif") no-repeat;
+		background-position: center;
+	}
+
 	.left .user-item, .right .blog-item{
 		margin: 5px 0 5px 0;
 	}
 		.left .user-item a, .right .blog-item a{
 			float:left;
+			display: block;
 		}
 		.left .user-item a.name, .right .blog-item a.name{
 			margin: 4px 0 0 10px;
@@ -128,6 +143,62 @@ span.red {
 		ol.filelist a.delete{
 			float: right;
 		}
+
+	.messages .message{
+		margin-bottom: 10px;
+		padding-bottom: 20px;
+		border-bottom: 1px #ccc solid;
+	}
+	.messages .message .left{
+		width: 52px;
+	}
+	.messages .message .bottom{
+		margin: 10px 0 0 0 ;
+	}
+	.messages .message .like{
+		display: block;
+		width: 24px;
+		height: 24px;
+		background: url("/img/ico/like.png") no-repeat;
+	}
+	.messages .message .like.liked{
+		width: 24px;
+		height: 24px;
+		background: url("/img/ico/liked.png") no-repeat;
+	}
+
+		.messages .message .left .ava{
+			width: 48px;
+			height: 48px;
+		}
+	.messages .message .right{
+		width: 510px;
+	}
+		.messages .message .right .top_info{
+			margin-bottom: 5px;
+			height: 18px;
+		}
+			.messages .message .right .top_info a.fio{
+				color:#36C;
+				text-decoration: none;
+				font-weight: bold;
+			}
+			.messages .message .right .top_info a.fio:hover{
+				text-decoration: underline;
+			}
+			.messages .message .right .top_info .date_create{
+				color: #999;
+				padding: 0 5px 0 5px;
+			}
+			.messages .message .right .top_info .delete{
+				float: right;
+				background: red;
+				width: 16px;
+				height: 16px;
+				margin: 4px;
+				display: block;
+                background: url(/img/ico/delete.png) no-repeat;
+			}
 
 .right {
 	float: right;

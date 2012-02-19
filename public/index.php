@@ -69,7 +69,7 @@ class Render
 		$class_name = get_class($controller);
 		$view = explode('\\', $class_name);
 		$folder = end($view);
-		/** @var $controller controller */
+		/** @var $controller \library\controller */
 		$action = $controller->action;
 		$args = '';
 		foreach ($controller->argvc as $key => $value)
@@ -80,24 +80,27 @@ class Render
 		$controller->preDispatch();
 		eval('$controller->' . $action . "($args);");
 		$controller->postDispatch();
-		if (isset($controller->view))
+		if ($controller->_get_render())
 		{
-			foreach ($controller->view as $key => $value)
+			if (isset($controller->view))
 			{
-				$this->smarty->assign($key, $value);
+				foreach ($controller->view as $key => $value)
+				{
+					$this->smarty->assign($key, $value);
+				}
 			}
-		}
-		if (file_exists(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.tpl'))
-		{
-			$this->smarty->display($folder . '/' . $action . '.tpl');
-		}
-		elseif (file_exists(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.phtml'))
-		{
-			require_once(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.phtml');
-		}
-		else
-		{
-			require_once(__DIR__ . '/../templates/views/' . $folder . '/index.phtml');
+			if (file_exists(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.tpl'))
+			{
+				$this->smarty->display($folder . '/' . $action . '.tpl');
+			}
+			elseif (file_exists(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.phtml'))
+			{
+				require_once(__DIR__ . '/../templates/views/' . $folder . '/' . $action . '.phtml');
+			}
+			else
+			{
+				require_once(__DIR__ . '/../templates/views/' . $folder . '/index.phtml');
+			}
 		}
 	}
 
@@ -106,7 +109,8 @@ class Render
 		return '';
 	}
 }
-
+ob_start();
 $cv = URL::controller();
 $render = new Render;
 $render->view($cv);
+ob_end_flush();

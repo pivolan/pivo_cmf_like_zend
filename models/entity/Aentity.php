@@ -16,6 +16,7 @@ abstract class Aentity
 	static protected $entity = array();
 
 	abstract static public function get($id);
+	abstract function delete();
 
 	public function as_array()
 	{
