@@ -7,6 +7,10 @@ body {
 	font-family: "Arial";
 	font-size: 14px;
 }
+input[type=file]
+{
+	display: none;
+}
 
 .head {
 	margin: 0 0 0 0;
@@ -30,6 +34,19 @@ body {
 			float: right;
 			padding: 5px;
 		}
+		.head .profile span.name{
+			float: right;
+			padding: 5px;
+		}
+		.head .profile span.name.active{
+			float: right;
+			padding: 2px;
+		}
+			.head span.name input.fio{
+				height: 17px;
+				width: 105px;
+			}
+
 	.head #gbi5 {
 		background: url("//ssl.gstatic.com/gb/images/h_bedf916a.png") repeat scroll 0 0 transparent;
 		display: block;
@@ -48,10 +65,23 @@ body {
 		overflow: hidden;
 		float:left;
 	}
-	.head .ava img{
-		height: 26px;
-		width: 26px;
-	}
+		.head .ava img{
+			height: 26px;
+			width: 26px;
+		}
+		.head .profile span.file_upload{
+			position: absolute;
+			width: 26px;
+			height: 26px;
+			display: block;
+			overflow: hidden;
+			cursor: pointer;
+			opacity: 0;
+			z-index: 2;
+		}
+			.head .profile span.file_upload input{
+				display: none;
+			}
 
 .main {
 	width: 1050px;

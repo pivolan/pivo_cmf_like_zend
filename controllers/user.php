@@ -51,4 +51,8 @@ class user extends \library\controller
 		echo $url;
 	}
 
+	function avaupload()
+	{
+
+	}
 }

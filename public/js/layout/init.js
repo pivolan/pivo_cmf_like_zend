@@ -8,4 +8,5 @@
 $(document).ready(function () {
 	Chat.init();
 	User.init();
+	Uploads.init();
 })

@@ -11,8 +11,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<LINK REL="SHORTCUT ICON" HREF="/img/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/css/layout/style.css" media="screen"/>
-	<script type="text/javascript" src="/js/jquery/jquery.js"></script>
-	<script type="text/javascript" src="/js/Common.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/jquery_plugin/jquery.fileupload.allinone.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/uploads.js"></script>
 	<script type="text/javascript" src="/js/chat.js"></script>
 	<script type="text/javascript" src="/js/user.js"></script>
 	<script type="text/javascript" src="/js/const.js"></script>
@@ -68,6 +70,7 @@
 		{block 'content'}
 			<div class="chat">
 				<div class="help">Чтобы прикрепить файлы, перетащите их сюда из проводника.</div>
+				<input type="file" multiple>
 				<textarea name="chat" id="chat-textarea" cols="50" rows="5"></textarea>
 				<input id="submit" type="submit" value="send">
 
