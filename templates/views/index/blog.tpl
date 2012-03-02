@@ -1,3 +1,1 @@
-<div>
-	{$blog.text}
-</div>
+{extends 'default.tpl'}

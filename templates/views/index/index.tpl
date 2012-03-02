@@ -1,1 +1,1 @@
-{extends 'default.tpl'}
+{extends 'bootstrap.tpl'}
