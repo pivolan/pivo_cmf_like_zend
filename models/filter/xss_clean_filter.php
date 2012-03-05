@@ -5,7 +5,8 @@ class xss_clean_filter extends Afilter
 {
 	static function static_filter($str)
 	{
-
+		$filter_entity = new xss_clean_filter();
+		return $filter_entity->filter($str);
 	}
 
 	protected $_xss_hash = '';

@@ -8,21 +8,25 @@
 var User = {
 	$container:null, //$('#user-list')
 	timer_id:null,
+	current_user_id:null,
 	init:function () {
-		this.$container = $('div.user-list');
+		this.$container = $('ul.user-list');
+		$('ul.user-list > li').live('click',function()
+		{
+			$('ul.user-list > li.active').removeClass('active');
+			$(this).addClass('active');
+		});
 		this.reload();
-
+		this.current_user_id = $('meta[name="user_id"]').attr('content');
 		$('#user-find-input').keyup(
 			function (evt) {
 				clearTimeout(User.timer_id);
-				User.timer_id = setTimeout(function()
-				{
+				User.timer_id = setTimeout(function () {
 					User.reload();
 				}, 1500)
 			}).change(function (evt) {
 				clearTimeout(User.timer_id);
-				User.timer_id = setTimeout(function()
-				{
+				User.timer_id = setTimeout(function () {
 					User.reload();
 				}, 1500)
 			});
@@ -43,12 +47,11 @@ var User = {
 				User.hide_loader();
 				for (index in jsons) {
 					var json = jsons[index];
-					var html = User.item_tpl(json.id, json.fio, 'http://placekitten.com/48');
+					var html = User.item_tpl(json.id, json.fio, 'http://placekitten.com/48', json.id == User.current_user_id);
 					User.add(html);
 				}
 			},
-			error:function()
-			{
+			error:function () {
 				User.hide_loader();
 			}
 		});
@@ -64,20 +67,16 @@ var User = {
 	clear:function () {
 		this.$container.html('');
 	},
-	item_tpl:function (id, fio, ava_src) {
-		return '' +
-			'<div class="user-item">' +
-			'	<a href="#' + id + '" class="ava"><img src="' + ava_src + '" alt="" width="26" height="26" align="middle"></a>' +
-			'	<a href="#' + id + '" class="name">' + fio + '</a> ('+id+')' +
-			'	<div class="clear"></div>' +
-			'</div>';
+	item_tpl:function (id, fio, ava_src, active) {
+		if (active)
+			return '<li class="active"><a href="#' + id + '"><i class="icon-user"></i>' + fio + '</a></li>';
+		else
+			return '<li><a href="#' + id + '"><i class="icon-user"></i>' + fio + '</a></li>';
 	},
-	show_loader:function()
-	{
+	show_loader:function () {
 		$('#user_loader').show();
 	},
-	hide_loader:function()
-	{
+	hide_loader:function () {
 		$('#user_loader').hide();
 	}
 }

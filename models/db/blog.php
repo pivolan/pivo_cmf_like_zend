@@ -62,7 +62,7 @@ class blog extends Adb
     {
         $result = array();
         $id = mysql_real_escape_string($id);
-        $sql = "SELECT * FROM " . self::$_table . " WHERE " . self::KN_OWNER_ID . " = '$id'";
+        $sql = "SELECT * FROM " . self::$_table . " WHERE " . self::KN_OWNER_ID . " = '$id' ORDER BY id DESC";
         $query_result = mysql_query($sql);
         if ($query_result)
         {

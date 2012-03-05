@@ -14,51 +14,56 @@ var Chat =
 	//todo: заменить на нормальную шаблонизацию через плагин jquery.
 	message_tpl:function (id, message, owner_id, fio, owner_ava_src, date_create) {
 		date_create = Common.helper_date(date_create);
-		if (Chat.current_user_id == owner_id){
+		if (Chat.current_user_id == owner_id) {
 			return '' +
-				'<div class="message" data_id="' + id + '">' +
-				'	<div class="left"><a class="ava" href="#' + owner_id + '"><img class="ava" src="' + owner_ava_src + '" alt="аватарка"></a></div>' +
-				'	<div class="right">' +
-				'		<div class="top_info">' +
-				'			<a class="fio" href="#' + owner_id + '">' + fio + '</a>' +
-				'			<span class="date_create">' + date_create + '</span>' +
-				'			<a title="удалить" class="delete" href="#delete"></a>' +
+				'<div class="span8 well" data-id="' + id + '">' +
+				'	<div class="row">' +
+				'		<div class="span1"><img alt="" src="' + owner_ava_src + '"></div>' +
+				'		<div class="span7">' +
+				'			<div class="pull-left">' +
+				'				<h4><a href="#' + owner_id + '"></a><i class="icon-user"></i>' + fio + '<span class="label">' + date_create + '</span>' +
+				'				</h4>' +
+				'			</div>' +
+				'			<div class="pull-right">' +
+				'				<a href="#" title=" Удалить " class="delete"><div class="close">&times;</div></a>' +
+				'			</div>' +
 				'		</div>' +
-				'		<div class="middle">' +
-				'			' + message +
-				'		</div>' +
-				'		<div class="bottom"><a class="like liked" href="#like"></a></div>' +
+				'		<hr>' +
+				'		<div class="span7">' + message + '</div>' +
 				'	</div>' +
-				'	<div class="clear_right"></div>' +
 				'</div>';
 		}
-		else
-		{
+		else {
 			return '' +
-				'<div class="message" data_id="' + id + '">' +
-				'	<div class="left"><a class="ava" href="#' + owner_id + '"><img class="ava" src="' + owner_ava_src + '" alt="аватарка"></a></div>' +
-				'	<div class="right">' +
-				'		<div class="top_info">' +
-				'			<a class="fio" href="#' + owner_id + '">' + fio + '</a>' +
-				'			<span class="date_create">' + date_create + '</span>' +
+				'<div class="span8 well" data-id="' + id + '">' +
+				'	<div class="row">' +
+				'		<div class="span1"><img alt="" src="' + owner_ava_src + '"></div>' +
+				'		<div class="span7">' +
+				'			<div class="pull-left">' +
+				'				<h4><a href="#' + owner_id + '"></a><i class="icon-user"></i>' + fio + '<span class="label">' + date_create + '</span>' +
+				'				</h4>' +
+				'			</div>' +
+				'			<div class="pull-right">' +
+				'			</div>' +
 				'		</div>' +
-				'		<div class="middle">' +
-				'			' + message +
-				'		</div>' +
-				'		<div class="bottom"><a class="like liked" href="#like"></a></div>' +
+				'		<hr>' +
+				'		<div class="span7">' + message + '</div>' +
 				'	</div>' +
-				'	<div class="clear_right"></div>' +
 				'</div>';
 		}
 	},
-	add:function (id, html) {
+	add:function (id, html, order) {
 		var $html = $(html);
 		$html.find('a.delete').click(function (evt) {
 			evt.preventDefault();
 			$html.remove();
 			Chat.remove_blog(id);
 		});
-		this.$container.prepend($html);
+		if (order)
+			this.$container.prepend($html);
+		else
+			this.$container.append($html);
+
 	},
 	load:function (owner_id, from, count) {
 		if (owner_id && owner_id > 0) {
@@ -86,10 +91,9 @@ var Chat =
 		});
 	},
 	init:function () {
-		this.$container = $('div.messages');
+		this.$container = $('div.messages.row');
 		var user_id = parseInt(window.location.hash.replace('#', ''));
 		this.current_user_id = $('meta[name="user_id"]').attr('content');
-		this.current_user_fio = $('meta[name="user_fio"]').attr('content');
 		if (user_id) {
 			this.user_id = user_id;
 		}
@@ -119,7 +123,7 @@ var Chat =
 				success:function (json) {
 					Chat.hide_loader();
 					html = Chat.message_tpl(json.id, json.message, json.owner_id, json.fio, 'http://placekitten.com/48', json.date_create);
-					Chat.add(json.id, html);
+					Chat.add(json.id, html, true);
 				},
 				error:function () {
 					Chat.hide_loader();

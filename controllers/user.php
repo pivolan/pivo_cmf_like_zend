@@ -9,6 +9,7 @@
 namespace controllers;
 use \models\entity;
 use \models\db;
+
 class user extends \library\controller
 {
 	public $page;
@@ -29,9 +30,17 @@ class user extends \library\controller
 		if (isset($_POST['fio']))
 		{
 			$fio = $_POST['fio'];
+			$fio = \models\filter\xss_clean_filter::static_filter($fio);
 			$user->set_fio($fio);
 			$user->save();
-			$this->redirect('');
+			if ($this->is_xml_http_request())
+			{
+				$this->json(array('id' => $user->get_id(), 'fio' => $fio));
+			}
+			else
+			{
+				$this->redirect('');
+			}
 		}
 		$this->view->fio = $user->get_fio();
 	}
