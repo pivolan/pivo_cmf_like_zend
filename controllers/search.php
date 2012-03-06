@@ -56,7 +56,7 @@ class search extends \library\controller
 		{
 			$message = $_POST[Adb::KN_MESSAGE];
 		}
-		elseif (isset($fio))
+		elseif (isset($message))
 		{
 			$message = urldecode($message);
 		}
@@ -65,9 +65,21 @@ class search extends \library\controller
 		/** @var $blog \models\entity\blog */
 		foreach ($blogs as $id => $blog)
 		{
+			$user_ids[$blog->get_owner_id()] = 1;
+		}
+		$users = \models\entity\user::get_multi(array_keys($user_ids));
+
+		/** @var $blog \models\entity\blog */
+		foreach ($blogs as $id => $blog)
+		{
+			/** @var $owner \models\entity\user */
+			$owner = $users[$blog->get_owner_id()];
 			$result[$id] = array(
 				Adb::KN_ID => $id,
 				Adb::KN_MESSAGE => $blog->get_message(),
+				Adb::KN_DATE_CREATE => $blog->get_date_create(),
+				Adb::KN_OWNER_ID => $blog->get_owner_id(),
+				Adb::KN_FIO => $owner->get_fio(),
 			);
 		}
 		$this->json($result);

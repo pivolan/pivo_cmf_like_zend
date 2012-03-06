@@ -7,72 +7,41 @@
  */
 var Profile =
 {
-	settings:{
-		$fio_container:$('#name'),
-		$ava_container:$('span.ava'),
-		$settings_container:$('a#gbi5'),
-		timer_id:null
-	},
-	init:function (settings) {
-		var _Profile = Profile;
-		_Profile.settings = $.extend(_Profile.settings, settings);
-		_Profile.$fio_container.find('span').click(function () {
-			var $this = $(this);
-			var fio = $this.text();
-			var html = _Profile.input_fio_tpl(fio);
-			_Profile.$fio_container.html();
-		});
-		$('#name').click(function (evt) {
-			evt.preventDefault;
-			var $this = $(this);
-			var user_name_id = $this.html();
-			var user_name = _Profile.filter_user(user_name_id);
-			var user_id = _Profile.filter_id(user_name_id);
-			var settings = {
-				user_name_id:user_name_id,
-				user_name:user_name,
-				user_id:user_id
-			}
-			_Profile.settings = $.extend(_Profile.settings, settings);
-			$this.html(_Profile.input_fio_tpl(user_name));
-		});
-		$('input.fio').live('keyup', function (evt) {
-			var name = $(this).val();
-			clearTimeout(_Profile.settings.timer_id);
-			_Profile.settings.timer_id = setTimeout(function () {
-				_Profile.save_name(name);
-			}, 1000);
-			if (evt) {
+	$input:null,
+	$span:null,
+	init:function () {
+		var _Profile = this;
+		_Profile.$span = $('p.navbar-text.pull-right > span');
+		_Profile.$input = $('p.navbar-text.pull-right > input')
 
-			}
-		})
-	},
-	input_fio_tpl:function (fio) {
-		return '\
-		<input class="fio" type="text" value="' + fio + '">\
-		';
-	},
-	filter_user:function (name_id) {
-		return name_id.match('[^(]*')[0];
-	},
-	filter_id:function (name_id) {
-		return name_id.match(/\(\d+\)/g)[0];
-	},
-	save_name:function (name, user_id) {
-		var _Profile = Profile;
+		_Profile.$span.click(function (evt) {
+			evt.preventDefault();
 
+			$(this).addClass('hidden');
+			_Profile.$input.removeClass('hidden').focus().select();
+		});
+
+		_Profile.$input.blur(
+			function () {
+				var $this = $(this);
+				Profile.load($this);
+			}).change(function () {
+				var $this = $(this);
+				Profile.load($this);
+			});
+	},
+	load:function ($input) {
+		var _Profile = this;
 		$.ajax({
-			url:'/user/editname',
-			data:{fio:name},
+			url:'/user/editname/',
+			data:{fio:$input.val()},
 			type:'post',
 			dataType:'json',
 			success:function (json) {
-				_Profile.return_name_span(name);
+				_Profile.$span.text(json.fio + '(' + json.id + ')').removeClass('hidden');
+				$input.addClass('hidden');
 			}
 		});
-	},
-	return_name_span:function (text) {
-		_Profile.settings.user_id;
-		$('#name').html(text + _Profile.settings.user_id);
+
 	}
 }
