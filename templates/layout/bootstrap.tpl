@@ -14,6 +14,9 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/jquery_plugin/vendor/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/js/jquery_plugin/jquery.iframe-transport.js"></script>
+	<script type="text/javascript" src="/js/jquery_plugin/jquery.fileupload.js"></script>
 	<script type="text/javascript" src="/js/const.js"></script>
 	<script type="text/javascript" src="/js/user.js"></script>
 	<script type="text/javascript" src="/js/blog.js"></script>
@@ -49,8 +52,8 @@
 			<div class="row-fluid">
 				<div class="span2">
 					<form class="form-search">
-						<input type="text" class="input input-mini search-query " id="user-find-input" placeholder="users">
-						<button class="btn" type="button"><i class="icon-search"></i></button>
+						<input type="text" class="input input-small search-query " id="user-find-input"
+							   placeholder="users">
 					</form>
 					<ul class="nav nav-pills nav-stacked user-list">
 						<li class="active"><a href="#"><i class="icon-user"></i>Guest</a></li>
@@ -62,12 +65,33 @@
 				<div class="span8 ">
 					<form class="form-horizontal" method="post" enctype="multipart/form-data">
 						<fieldset>
+							<div class="alert alert-info" id="file-message">Перетащите сюда файлы для прикрепления к сообщению</div>
 							<legend>New message</legend>
 							<div class="control-group">
 								<label class="control-label" for="input01">Text input</label>
 
 								<div class="controls">
-									<textarea name="message" id="chat-textarea" class="input-xlarge" rows="3"></textarea>
+									<textarea name="message" id="chat-textarea" class="input-xlarge span6"
+											  rows="3"></textarea>
+									<ul class="nav nav-pills nav-stacked span6" id="files">
+										<li><i class="icon-file"></i> привет
+											<div class="close">&times;</div>
+										</li>
+										<li><i class="icon-book"></i> привет
+											<div class="close">&times;</div>
+										</li>
+										<li>
+											<i class="icon-picture"
+											   title="<img src='http://placekitten.com/100/100' alt=''>"></i> привет
+											<div class="close">&times;</div>
+										</li>
+										<li><i class="icon-music"></i> привет
+											<div class="close">&times;</div>
+										</li>
+										<li><i class="icon-film"></i> привет
+											<div class="close">&times;</div>
+										</li>
+									</ul>
 								</div>
 							</div>
 							<button id="submit" class="btn btn-primary" type="button">Send</button>
@@ -78,8 +102,7 @@
 				</div>
 				<div class="span2 ">
 					<form class="form-search">
-						<input type="text" class="input input-mini search-query" placeholder="blogs" id="blogs">
-						<button class="btn" type="submit"><i class="icon-search"></i></button>
+						<input type="text" class="input input-small search-query" placeholder="blogs" id="blogs">
 					</form>
 					<ul class="nav nav-pills nav-stacked" id="blog_list">
 						<li><a href="#"><i class="icon-bookmark"></i>who are you</a></li>
