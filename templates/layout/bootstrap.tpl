@@ -74,23 +74,6 @@
 									<textarea name="message" id="chat-textarea" class="input-xlarge span6"
 											  rows="3"></textarea>
 									<ul class="nav nav-pills nav-stacked span6" id="files">
-										<li><i class="icon-file"></i> привет
-											<div class="close">&times;</div>
-										</li>
-										<li><i class="icon-book"></i> привет
-											<div class="close">&times;</div>
-										</li>
-										<li>
-											<i class="icon-picture"
-											   title="<img src='http://placekitten.com/100/100' alt=''>"></i> привет
-											<div class="close">&times;</div>
-										</li>
-										<li><i class="icon-music"></i> привет
-											<div class="close">&times;</div>
-										</li>
-										<li><i class="icon-film"></i> привет
-											<div class="close">&times;</div>
-										</li>
 									</ul>
 								</div>
 							</div>
@@ -105,10 +88,6 @@
 						<input type="text" class="input input-small search-query" placeholder="blogs" id="blogs">
 					</form>
 					<ul class="nav nav-pills nav-stacked" id="blog_list">
-						<li><a href="#"><i class="icon-bookmark"></i>who are you</a></li>
-						<li><a href="#"><i class="icon-user"></i>hello world</a></li>
-						<li class="active"><a href="#"><i class="icon-user"></i>Guest</a></li>
-						<li><a href="#"><i class="icon-user"></i>Guest</a></li>
 					</ul>
 				</div>
 			</div>
