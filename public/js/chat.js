@@ -68,10 +68,13 @@ var Chat =
 	load:function (owner_id, from, count) {
 		if (owner_id && owner_id > 0) {
 			var url = '/search/blog_owner/' + owner_id + '/' + from + '/' + count;
+			User.set_active(owner_id);
 		}
 		else {
 			var url = '/search/blog_all/';
+			User.clear_active();
 		}
+
 		$.ajax({
 			url:url,
 			data:'',

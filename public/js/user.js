@@ -10,24 +10,21 @@ var User = {
 	timer_id:null,
 	current_user_id:null,
 	init:function () {
+		var _User = this;
 		this.$container = $('ul.user-list');
-		$('ul.user-list > li').live('click',function()
-		{
-			$('ul.user-list > li.active').removeClass('active');
-			$(this).addClass('active');
-		});
 		this.reload();
 		this.current_user_id = $('meta[name="user_id"]').attr('content');
+
 		$('#user-find-input').keyup(
 			function (evt) {
-				clearTimeout(User.timer_id);
-				User.timer_id = setTimeout(function () {
-					User.reload();
+				clearTimeout(_User.timer_id);
+				_User.timer_id = setTimeout(function () {
+					_User.reload();
 				}, 1500)
 			}).change(function (evt) {
-				clearTimeout(User.timer_id);
-				User.timer_id = setTimeout(function () {
-					User.reload();
+				clearTimeout(_User.timer_id);
+				_User.timer_id = setTimeout(function () {
+					_User.reload();
 				}, 1500)
 			});
 	},
@@ -47,7 +44,7 @@ var User = {
 				User.hide_loader();
 				for (index in jsons) {
 					var json = jsons[index];
-					var html = User.item_tpl(json.id, json.fio, 'http://placekitten.com/48', json.id == User.current_user_id);
+					var html = User.item_tpl(json.id, json.fio, 'http://placekitten.com/48', json.id == Chat.user_id);
 					User.add(html);
 				}
 			},
@@ -69,14 +66,21 @@ var User = {
 	},
 	item_tpl:function (id, fio, ava_src, active) {
 		if (active)
-			return '<li class="active"><a href="#' + id + '"><i class="icon-user"></i>' + fio + '</a></li>';
+			return '<li class="active" data-id="' + id + '"><a href="#' + id + '"><i class="icon-user"></i>' + fio + '</a></li>';
 		else
-			return '<li><a href="#' + id + '"><i class="icon-user"></i>' + fio + '</a></li>';
+			return '<li data-id="' + id + '"><a href="#' + id + '"><i class="icon-user"></i>' + fio + '</a></li>';
 	},
 	show_loader:function () {
 		$('#user_loader').show();
 	},
 	hide_loader:function () {
 		$('#user_loader').hide();
+	},
+	set_active:function (user_id) {
+		this.$container.children('li.active').removeClass('active');
+		this.$container.children('li[data-id="' + user_id + '"]').addClass('active');
+	},
+	clear_active:function () {
+		this.$container.children('li.active').removeClass('active');
 	}
 }

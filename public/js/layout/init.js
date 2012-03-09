@@ -7,8 +7,8 @@
  */
 
 $(document).ready(function () {
-	Chat.init();
 	User.init();
+	Chat.init();
 //	Uploads.init();
 	Profile.init();
 	Blog.init();
