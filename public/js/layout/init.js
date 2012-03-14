@@ -12,15 +12,36 @@ $(document).ready(function () {
 //	Uploads.init();
 	Profile.init();
 	Blog.init();
-	$('#files > li > i').tooltip({placement:'left'});
+
 	$('#files').fileupload({
-		url:'/index/upload',
+		url:'/file/upload',
 		dataType:'json',
 		maxFileSize:10000000,
 		done:function (e, data) {
-			console.log(data);
+			console.log($('#files'));
+			console.log($('#files').find('li:contains("' + data.result.name + '")'));
 			console.log(data.result);
-			console.log(e);
+			var result = data.result[0];
+			var $el = $('#files').find('li:contains("' + result.name + '")');
+			var $a = $el.find('a');
+			$a.attr('href', result.url);
+			if (typeof result.thumbnail_url != 'undefined'){
+				var thumbnail_img = '<img src="' + result.thumbnail_url + '"/>';
+				$('<img />').attr('src', result.thumbnail_url);
+				$a.attr("title", thumbnail_img).tooltip({placement:'left'});
+			}
+			$a.find('div.close').click(function(evt){
+				evt.preventDefault();
+				$a.tooltip('hide');
+				$.ajax({
+					url:result.delete_url,
+					success:function()
+					{
+						$a.tooltip('hide');
+						$el.remove();
+					}
+				});
+			});
 		},
 		always:function (e, data) {
 		},
@@ -48,13 +69,8 @@ $(document).ready(function () {
 				style_class = 'icon-film';
 			if (type.match(/audio/))
 				style_class = 'icon-music';
-			var $html = $('<li><i class="' + style_class + '"></i>' + filename + '<div class="close">&times;</div></li>');
+			var $html = $('<li><a target="_blank"><i class="' + style_class + '"></i>' + filename + '<div class="close">&times;</div></a></li>');
 			$html.data('data_file', data);
-			$html.find('div.close').click(function () {
-				$html.data('data_file', null);
-				$html.remove();
-				delete files.data[filename];
-			});
 			data.submit();
 			$this.append($html);
 			files.data[filename] = $html;
