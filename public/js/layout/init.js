@@ -14,10 +14,13 @@ $(document).ready(function () {
 	Blog.init();
 	$('#files > li > i').tooltip({placement:'left'});
 	$('#files').fileupload({
-		url:'/vasya',
+		url:'/index/upload',
 		dataType:'json',
 		maxFileSize:10000000,
 		done:function (e, data) {
+			console.log(data);
+			console.log(data.result);
+			console.log(e);
 		},
 		always:function (e, data) {
 		},
@@ -33,6 +36,7 @@ $(document).ready(function () {
 			$('#file-message').addClass('alert-info').removeClass('alert-success');
 		},
 		add:function (e, data) {
+			console.log(e);
 			console.log(data);
 			var $this = $(this);
 			var filename = data.files[0].name;
@@ -51,7 +55,7 @@ $(document).ready(function () {
 				$html.remove();
 				delete files.data[filename];
 			});
-
+			data.submit();
 			$this.append($html);
 			files.data[filename] = $html;
 		}
