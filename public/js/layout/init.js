@@ -46,6 +46,7 @@ $(document).ready(function () {
 		always:function (e, data) {
 		},
 		progress:function (e, data) {
+            console.log(data);
 		},
 		progressall:function (e, data) {
 //			console.log(data.loaded);

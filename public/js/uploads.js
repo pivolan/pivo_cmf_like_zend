@@ -1,11 +1,18 @@
 var Uploads = {
-	settings: {
-		$container:$('div.help')
-	},
-	init:function(settings){
-		var _Uploads = this;
-		var $container = $('div.help');
-		_Uploads.settings = $.extend(_Uploads.settings, settings);
-		$container.fileupload();
-	}
+    files:{},
+    getFileExt:function(filename)
+    {
+        var names = filename.split('.');
+        return names[names.length-1];
+    },
+    getFileName:function(filename)
+    {
+        var ext = this.getFileExt(filename);
+        return filename.replace('.'+ext, '');
+    },
+    add:function(filename)
+    {
+        this.files[filename] = filename;
+    },
+
 }

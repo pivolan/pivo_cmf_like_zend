@@ -22,6 +22,7 @@
 	<script type="text/javascript" src="/js/blog.js"></script>
 	<script type="text/javascript" src="/js/profile.js"></script>
 	<script type="text/javascript" src="/js/chat.js"></script>
+	<script type="text/javascript" src="/js/uploads.js"></script>
 	<script type="text/javascript" src="/js/layout/init.js"></script>
 </head>
 <body>
