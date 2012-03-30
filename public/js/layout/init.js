@@ -19,7 +19,8 @@ $(document).ready(function () {
 		maxFileSize:10000000,
 		done:function (e, data) {
 			console.log($('#files'));
-			console.log($('#files').find('li:contains("' + data.result.name + '")'));
+            var filename = data.result[0].name;
+            console.log($('#files').find('li:contains("' + filename + '")'));
 			console.log(data.result);
 			var result = data.result[0];
 			var $el = $('#files').find('li:contains("' + result.name + '")');
@@ -39,14 +40,22 @@ $(document).ready(function () {
 					{
 						$a.tooltip('hide');
 						$el.remove();
+                        $('div.progress[data-filename="'+filename+'"]').remove();
 					}
 				});
 			});
+            $('div.progress[data-filename="'+filename+'"]').removeClass('active').removeClass('progress-striped progress-info').addClass('progress-success').find('div.bar').width('100%');
 		},
 		always:function (e, data) {
 		},
 		progress:function (e, data) {
             console.log(data);
+            var file = data.files[0];
+            var filename = file.name;
+            var loaded = data.loaded;
+            var total = data.total;
+            var percent = loaded/total * 100;
+            $('div.progress[data-filename="'+filename+'"]').find('div.bar').width(percent + '%');
 		},
 		progressall:function (e, data) {
 //			console.log(data.loaded);
@@ -71,9 +80,10 @@ $(document).ready(function () {
 			if (type.match(/audio/))
 				style_class = 'icon-music';
 			var $html = $('<li><a target="_blank"><i class="' + style_class + '"></i>' + filename + '<div class="close">&times;</div></a></li>');
+            var progressBar = '<div data-filename="'+filename+'" class="progress progress-info progress-striped active"><div class="bar" style="width: 0%;"></div></div>';
 			$html.data('data_file', data);
 			data.submit();
-			$this.append($html);
+			$this.append($html).append(progressBar);
 			files.data[filename] = $html;
 		}
 	});
