@@ -66,7 +66,4 @@ class find_link_away extends Afilter
 			, $edit_link, $message);
 		return $result;
 	}
-
-	public function filter($message){}
-
 }

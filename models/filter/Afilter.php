@@ -10,6 +10,5 @@ namespace models\filter;
 
 abstract class Afilter
 {
-	abstract public function filter($message);
 	abstract static public function static_filter($message);
 }
