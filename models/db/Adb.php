@@ -21,10 +21,13 @@ abstract class Adb
 	const KN_LOGIN = 'login';
 	const KN_FIO = 'fio';
 	const KN_COOKIE_ID = 'cookie_id';
+	const KN_MIMETYPE = 'mimetype';
+	const KN_PATH = 'path';
 
 	const TN_BLOG = 'blog';
 	const TN_USER = 'user';
 	const TN_LIKE = 'like';
+	const TN_ATTACHMENT = 'attachment';
 
     const CF_PAGINATE_COUNT = 10;
 
