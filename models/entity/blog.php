@@ -93,11 +93,12 @@ class blog extends Aentity
 		return $result;
 	}
 
-	static public function create($message, $owner_id, $date_create = null)
+	static public function create($message, $owner_id, $files, $date_create = null)
 	{
 		$data = array(
 			Adb::KN_MESSAGE => $message,
 			Adb::KN_OWNER_ID => $owner_id,
+            Adb::KN_FILES => implode(',', $files),
 		);
 		if ($date_create)
 		{
@@ -166,6 +167,19 @@ class blog extends Aentity
 		}
 		return $result;
 	}
+    
+    public function get_files()
+    {
+        $result = null;
+        if (isset($this->chdata[Adb::KN_FILES])) {
+            $result = $this->chdata[Adb::KN_FILES];
+        }
+        elseif (isset($this->data[Adb::KN_FILES]))
+        {
+            $result = $this->data[Adb::KN_FILES];
+        }
+        return explode(',', $result);
+    }
 	// GET end */
 
 	/** SET start */

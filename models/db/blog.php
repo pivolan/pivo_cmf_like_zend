@@ -15,6 +15,7 @@ class blog extends Adb
         self::KN_MESSAGE => '',
         self::KN_OWNER_ID => '',
         self::KN_DATE_CREATE => '',
+        self::KN_FILES => '',
     );
 
     static protected $_table = self::TN_BLOG;

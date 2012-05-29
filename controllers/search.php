@@ -105,6 +105,7 @@ class search extends \library\controller
 				Adb::KN_MESSAGE => $blog->get_message(),
 				Adb::KN_DATE_CREATE => $blog->get_date_create(),
 				Adb::KN_OWNER_ID => $blog->get_owner_id(),
+				Adb::KN_FILES => $blog->get_files(),
 				Adb::KN_FIO => $owner->get_fio(),
 			);
 		}

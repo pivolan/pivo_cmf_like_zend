@@ -12,8 +12,9 @@ var Chat =
 	current_user_id:null, //from hash url
 	from:0,
 	//todo: заменить на нормальную шаблонизацию через плагин jquery.
-	message_tpl:function (id, message, owner_id, fio, owner_ava_src, date_create) {
+	message_tpl:function (id, message, owner_id, fio, owner_ava_src, date_create, files) {
 		date_create = Common.helper_date(date_create);
+        var html_file = this.file_tpl(files);
 		if (Chat.current_user_id == owner_id) {
 			return '' +
 				'<div class="span8 well" data-id="' + id + '">' +
@@ -30,6 +31,7 @@ var Chat =
 				'		</div>' +
 				'		<hr>' +
 				'		<div class="span7">' + message + '</div>' +
+				'		<div class="span7">' + html_file + '</div>' +
 				'	</div>' +
 				'</div>';
 		}
@@ -48,10 +50,21 @@ var Chat =
 				'		</div>' +
 				'		<hr>' +
 				'		<div class="span7">' + message + '</div>' +
+				'		<div class="span7">' + html_file + '</div>' +
 				'	</div>' +
 				'</div>';
 		}
 	},
+    file_tpl: function(files)
+    {
+        var result = '';
+        for(var i in files)
+        {
+            var file = files[i];
+            result += '<a target="_blank" href="'+file+'"><img src="'+file.replace('files', 'thumbnails')+'"/></a>';
+        }
+        return result;
+    },
 	add:function (id, html, order) {
 		var $html = $(html);
 		$html.find('a.delete').click(function (evt) {
@@ -84,7 +97,7 @@ var Chat =
 				Chat.hide_loader();
 				for (index in jsons) {
 					var json = jsons[index];
-					var html = Chat.message_tpl(json.id, json.message, json.owner_id, json.fio, 'http://placekitten.com/48', json.date_create);
+					var html = Chat.message_tpl(json.id, json.message, json.owner_id, json.fio, 'http://placekitten.com/48', json.date_create, json.files);
 					Chat.add(json.id, html);
 				}
 			},
@@ -118,11 +131,15 @@ var Chat =
 		$('#submit').click(function () {
 			var value = $('#chat-textarea').val();
 			Chat.show_loader();
+            var files = [];
+            $('#files a').each(function(index, target){
+                files.push($(target).attr("href"));
+            });
 			$.ajax({
 				type:'post',
 				dataType:'json',
 				url:'/blog/create',
-				data:{message:value},
+				data:{message:value, files: files},
 				success:function (json) {
 					Chat.hide_loader();
 					html = Chat.message_tpl(json.id, json.message, json.owner_id, json.fio, 'http://placekitten.com/48', json.date_create);

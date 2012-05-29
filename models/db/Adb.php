@@ -23,6 +23,7 @@ abstract class Adb
 	const KN_COOKIE_ID = 'cookie_id';
 	const KN_MIMETYPE = 'mimetype';
 	const KN_PATH = 'path';
+    const KN_FILES = 'files';
 
 	const TN_BLOG = 'blog';
 	const TN_USER = 'user';

@@ -45,8 +45,9 @@ class blog extends \library\controller
 		if (isset($_POST[Adb::KN_MESSAGE]))
 		{
 			$message = $_POST[Adb::KN_MESSAGE];
+            $files = $_POST[Adb::KN_FILES];
 			$current_user = $this->get_auth_user();
-			$blog = \models\busines\event\create_blog::create($message, $current_user);
+			$blog = \models\busines\event\create_blog::create($message, $current_user, $files);
 			if ($this->is_xml_http_request())
 			{
 				$this->json(array(
@@ -55,6 +56,7 @@ class blog extends \library\controller
 					Adb::KN_DATE_CREATE => $blog->get_date_create(),
 					Adb::KN_OWNER_ID => $blog->get_owner_id(),
 					Adb::KN_FIO => $current_user->get_fio(),
+                    Adb::KN_FILES => $files,
 				));
 			}
 			else

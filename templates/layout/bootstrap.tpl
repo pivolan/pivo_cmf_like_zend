@@ -11,7 +11,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" media="screen"/>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/jquery_plugin/vendor/jquery.ui.widget.js"></script>
@@ -38,10 +38,10 @@
 			</ul>
 			<p class="navbar-text pull-right">
 				<a class="thumbnail pull-left" href="#">
-					<img src="http://placekitten.com/26" alt="">
+					<img src="http://placekitten.com/26" alt="" plugin="change_avatar">
 				</a>
-				<span>{$user.fio}({$user.id})</span>
-				<input type="text" class="input-small navbar-form hidden" value="{$user.fio}">
+				<span plugin="change_fio" data-target="#change_fio_input" data-fio="{$user.fio}" data-userid="{$user.id}">{$user.fio}({$user.id})</span>
+				<input id="change_fio_input" type="text" class="input-small navbar-form hidden" value="{$user.fio}">
 
 			</p>
 		</div>
