@@ -61,7 +61,7 @@ var Chat =
         for(var i in files)
         {
             var file = files[i];
-            result += '<a target="_blank" href="'+file+'"><img src="'+file.replace('files', 'thumbnails')+'"/></a>';
+            result += '<a target="_blank" data-toggle="modal" href="'+file+'"><img src="'+file.replace('files', 'thumbnails')+'"/></a>';
         }
         return result;
     },
@@ -142,7 +142,7 @@ var Chat =
 				data:{message:value, files: files},
 				success:function (json) {
 					Chat.hide_loader();
-					html = Chat.message_tpl(json.id, json.message, json.owner_id, json.fio, 'http://placekitten.com/48', json.date_create);
+					html = Chat.message_tpl(json.id, json.message, json.owner_id, json.fio, 'http://placekitten.com/48', json.date_create, json.files);
 					Chat.add(json.id, html, true);
 				},
 				error:function () {
